@@ -1,0 +1,7 @@
+Commands:
+#\list-forchecking databases
+#\! cls-clearing screen
+#CREATE DATABASE dbname;
+
+Commands CMD:
+>psql -U postgres

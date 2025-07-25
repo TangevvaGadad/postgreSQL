@@ -5,3 +5,7 @@ Commands:
 
 Commands CMD:
 >psql -U postgres
+
+~SELECT datname FROM pg_database; is used to list all databases in a PostgreSQL instance.
+
+

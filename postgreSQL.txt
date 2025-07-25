@@ -8,4 +8,4 @@ Commands CMD:
 
 ~SELECT datname FROM pg_database; is used to list all databases in a PostgreSQL instance.
 
-
+~\c <dbname>;  to change the database

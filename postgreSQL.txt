@@ -9,3 +9,25 @@ Commands CMD:
 ~SELECT datname FROM pg_database; is used to list all databases in a PostgreSQL instance.
 
 ~\c <dbname>;  to change the database
+
+~drop database <db name>; to delete database
+
+------------CRUD-----------------
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+-- Creates a 'users' table with id, name, and email fields.
+
+INSERT INTO users (name, email) VALUES ('John', 'john@example.com');
+-- Adds a new user with name and email into the 'users' table.
+
+SELECT * FROM users;
+-- Fetches all rows and columns from the 'users' table.
+
+UPDATE users SET email = 'new@example.com' WHERE name = 'John';
+-- Updates the email of the user named John.
+
+DELETE FROM users WHERE name = 'John';
+-- Deletes the user whose name is John.

@@ -31,3 +31,5 @@ UPDATE users SET email = 'new@example.com' WHERE name = 'John';
 
 DELETE FROM users WHERE name = 'John';
 -- Deletes the user whose name is John.
+
+~\d tableName; to see table

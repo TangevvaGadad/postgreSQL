@@ -33,3 +33,71 @@ DELETE FROM users WHERE name = 'John';
 -- Deletes the user whose name is John.
 
 ~\d tableName; to see table
+
+~\dt :to see list of tables
+
+UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition;
+
+Constraint: A rule applied to a column.
+
+-- PostgreSQL Constraints Cheat Sheet --
+
+-- 1. NOT NULL
+-- Ensures that a column cannot contain NULL values.
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+-- 2. UNIQUE
+-- Ensures that all values in a column are different.
+CREATE TABLE employees (
+    email TEXT UNIQUE
+);
+
+-- 3. PRIMARY KEY
+-- Combines NOT NULL and UNIQUE. Each table can have only one primary key.
+CREATE TABLE students (
+    roll_no INT PRIMARY KEY,
+    name TEXT
+);
+
+-- 4. FOREIGN KEY
+-- Maintains referential integrity between two tables.
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id)
+);
+
+-- 5. CHECK
+-- Ensures that values in a column satisfy a specific condition.
+CREATE TABLE accounts (
+    balance NUMERIC CHECK (balance >= 0)
+);
+
+-- 6. DEFAULT
+-- Sets a default value for a column when no value is specified.
+CREATE TABLE logs (
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 7. COMPOSITE PRIMARY KEY
+-- Defines a primary key using multiple columns.
+CREATE TABLE enrollment (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id)
+);
+
+-- 8. ON DELETE / ON UPDATE
+-- Specifies behavior for foreign keys when the referenced row is deleted or updated.
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+

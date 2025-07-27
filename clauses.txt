@@ -1,0 +1,68 @@
+-- PostgreSQL SQL Clauses Cheat Sheet --
+
+-- 1. SELECT
+-- Used to retrieve data from a table.
+SELECT * FROM employees;
+SELECT fname, email FROM employees;
+
+-- 2. WHERE
+-- Filters rows based on specified conditions.
+SELECT * FROM employees WHERE lname = 'Smith';
+SELECT * FROM employees WHERE hireDate >= '2024-01-01';
+
+-- 3. ORDER BY
+-- Sorts the result set by one or more columns.
+SELECT * FROM employees ORDER BY hireDate ASC;
+SELECT * FROM employees ORDER BY fname DESC;
+
+-- 4. GROUP BY
+-- Groups rows that share a value in specified column(s); used with aggregate functions.
+SELECT department, COUNT(*) FROM employees GROUP BY department;
+
+-- 5. HAVING
+-- Filters groups created by GROUP BY based on a condition.
+SELECT department, COUNT(*) 
+FROM employees 
+GROUP BY department 
+HAVING COUNT(*) > 5;
+
+-- 6. LIMIT
+-- Limits the number of rows returned.
+SELECT * FROM employees LIMIT 5;
+
+-- 7. OFFSET
+-- Skips a specified number of rows before beginning to return rows.
+SELECT * FROM employees OFFSET 5;
+
+-- 8. DISTINCT
+-- Removes duplicate rows from the result set.
+SELECT DISTINCT department FROM employees;
+
+-- 9. JOIN (INNER JOIN)
+-- Combines rows from two or more tables based on a related column.
+SELECT e.id, e.fname, d.name 
+FROM employees e 
+INNER JOIN departments d ON e.dept_id = d.id;
+
+-- 10. LEFT JOIN / RIGHT JOIN / FULL JOIN
+-- LEFT JOIN returns all rows from left table, even if there's no match in right.
+SELECT e.fname, d.name 
+FROM employees e 
+LEFT JOIN departments d ON e.dept_id = d.id;
+
+-- 11. IN
+-- Filters rows where column value matches any in a list.
+SELECT * FROM employees WHERE department IN ('HR', 'Sales');
+
+-- 12. BETWEEN
+-- Filters values within a specified range (inclusive).
+SELECT * FROM employees WHERE hireDate BETWEEN '2023-01-01' AND '2024-12-31';
+
+-- 13. LIKE
+-- Pattern matching using % (wildcard).
+SELECT * FROM employees WHERE email LIKE '%@example.com';
+
+-- 14. IS NULL / IS NOT NULL
+-- Checks for NULL values.
+SELECT * FROM employees WHERE lname IS NULL;
+SELECT * FROM employees WHERE lname IS NOT NULL;

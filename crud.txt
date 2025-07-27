@@ -1,0 +1,25 @@
+------------CRUD-----------------
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+-- Creates a 'users' table with id, name, and email fields.
+
+INSERT INTO users (name, email) VALUES ('John', 'john@example.com');
+-- Adds a new user with name and email into the 'users' table.
+
+SELECT * FROM users;
+-- Fetches all rows and columns from the 'users' table.
+
+UPDATE users SET email = 'new@example.com' WHERE name = 'John';
+-- Updates the email of the user named John.
+
+DELETE FROM users WHERE name = 'John';
+-- Deletes the user whose name is John.
+
+UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition;

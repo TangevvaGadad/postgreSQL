@@ -1,0 +1,33 @@
+-- COUNT: Returns number of input rows
+SELECT COUNT(*) FROM users;
+
+-- SUM: Adds up values in a column
+SELECT SUM(salary) FROM employees;
+
+-- AVG: Calculates average
+SELECT AVG(salary) FROM employees;
+
+-- MIN: Finds minimum value
+SELECT MIN(age) FROM customers;
+
+-- MAX: Finds maximum value
+SELECT MAX(age) FROM customers;
+
+-- GROUP BY: Used with aggregates to group results
+SELECT department, COUNT(*) FROM employees GROUP BY department;
+
+-- HAVING: Filter after aggregation
+SELECT department, AVG(salary) 
+FROM employees 
+GROUP BY department 
+HAVING AVG(salary) > 50000;
+
+-- STRING_AGG: Concatenate strings from grouped rows
+SELECT department, STRING_AGG(name, ', ') 
+FROM employees 
+GROUP BY department;
+
+-- ARRAY_AGG: Aggregate values into an array
+SELECT department, ARRAY_AGG(salary) 
+FROM employees 
+GROUP BY department;

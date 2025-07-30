@@ -17,4 +17,11 @@ Commands CMD:
 ~\dt :to see list of tables
 
 
+Certainly! Here's a basic PostgreSQL syntax example for a subquery (query inside a query) in code form:
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
 

@@ -24,3 +24,7 @@ WHERE salary > (
     FROM employees
 );
 
+
+Coalesce function- COALESCE returns the first non-null value from the list of arguments provided.-like assigning default value
+
+

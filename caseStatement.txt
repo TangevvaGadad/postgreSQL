@@ -1,0 +1,150 @@
+-- ==========================================
+--         CASE STATEMENT IN PostgreSQL
+-- ==========================================
+
+-- What is CASE?
+-- CASE is a conditional expression used to add IF-THEN-ELSE logic to SQL queries.
+-- It is used to perform conditional operations in SELECT, UPDATE, INSERT, and ORDER BY.
+
+-- ==========================================
+-- 1. BASIC SYNTAX
+-- ==========================================
+
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    ...
+    ELSE default_result
+END
+
+-- ==========================================
+-- 2. USE CASES
+-- ==========================================
+
+-- =========================
+-- A. CASE in SELECT
+-- =========================
+
+-- Example: Assigning grades based on marks
+SELECT 
+    student_id,
+    name,
+    marks,
+    CASE
+        WHEN marks >= 90 THEN 'A'
+        WHEN marks >= 75 THEN 'B'
+        WHEN marks >= 60 THEN 'C'
+        ELSE 'Fail'
+    END AS grade
+FROM students;
+
+-- =========================
+-- B. CASE in UPDATE
+-- =========================
+
+-- Example: Updating salary based on department
+UPDATE employees
+SET salary = 
+    CASE
+        WHEN department = 'HR' THEN salary + 1000
+        WHEN department = 'IT' THEN salary + 2000
+        ELSE salary + 500
+    END;
+
+-- =========================
+-- C. CASE in ORDER BY
+-- =========================
+
+-- Example: Custom sorting based on role priority
+SELECT name, role
+FROM users
+ORDER BY 
+    CASE
+        WHEN role = 'admin' THEN 1
+        WHEN role = 'manager' THEN 2
+        WHEN role = 'staff' THEN 3
+        ELSE 4
+    END;
+
+-- =========================
+-- D. CASE in INSERT
+-- =========================
+
+-- Example: Inserting bonus based on department
+INSERT INTO employees (name, department, bonus)
+VALUES
+('John', 'IT',
+    CASE
+        WHEN 'IT' = 'IT' THEN 5000
+        ELSE 1000
+    END
+);
+
+-- =========================
+-- E. CASE with Aggregation
+-- =========================
+
+-- Example: Count pass and fail students
+SELECT 
+    COUNT(CASE WHEN marks >= 35 THEN 1 END) AS pass_count,
+    COUNT(CASE WHEN marks < 35 THEN 1 END) AS fail_count
+FROM students;
+
+-- =========================
+-- F. Nested CASE (Advanced)
+-- =========================
+
+-- Example: More complex grading logic
+SELECT 
+    name,
+    marks,
+    CASE 
+        WHEN marks >= 90 THEN 'A'
+        WHEN marks >= 80 THEN 
+            CASE 
+                WHEN marks >= 85 THEN 'B+'
+                ELSE 'B'
+            END
+        ELSE 'C or below'
+    END AS grade
+FROM students;
+
+-- ==========================================
+-- 3. THINGS TO NOTE
+-- ==========================================
+
+-- ✔ CASE can be used anywhere an expression is valid (SELECT, WHERE, ORDER BY, etc.)
+-- ✔ It always returns a single value from the matching WHEN clause.
+-- ✔ It stops checking further WHENs once a match is found.
+-- ✔ ELSE is optional. If no condition matches and no ELSE is given, it returns NULL.
+-- ✔ It is not a control-flow statement like in other languages — it returns a value.
+
+-- ==========================================
+-- 4. SIMPLE CASE vs SEARCHED CASE
+-- ==========================================
+
+-- SIMPLE CASE: compares one expression to multiple values
+SELECT 
+    product_id,
+    price,
+    CASE category
+        WHEN 'Electronics' THEN 'Gadget'
+        WHEN 'Clothing' THEN 'Apparel'
+        ELSE 'Other'
+    END AS category_type
+FROM products;
+
+-- SEARCHED CASE: uses full conditions in each WHEN
+SELECT 
+    product_id,
+    price,
+    CASE 
+        WHEN price > 10000 THEN 'Expensive'
+        WHEN price BETWEEN 5000 AND 10000 THEN 'Moderate'
+        ELSE 'Cheap'
+    END AS price_range
+FROM products;
+
+-- ==========================================
+-- END OF CASE STATEMENT USAGE
+-- ==========================================

@@ -1,1 +1,52 @@
 ALTER TABLE table_name action;
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+
+-- Drop a single column from a table
+ALTER TABLE employees
+DROP COLUMN age;
+
+-- Drop multiple columns from a table
+ALTER TABLE employees
+DROP COLUMN age,
+DROP COLUMN address;
+
+-- Drop a constraint from a table (e.g., foreign key, unique, etc.)
+ALTER TABLE employees
+DROP CONSTRAINT fk_department;
+
+-- Drop a primary key constraint
+ALTER TABLE employees
+DROP CONSTRAINT employees_pkey;
+
+-- Drop a default value from a column
+ALTER TABLE employees
+ALTER COLUMN salary DROP DEFAULT;
+
+-- Drop NOT NULL constraint from a column
+ALTER TABLE employees
+ALTER COLUMN salary DROP NOT NULL;
+
+
+
+-- Rename a table
+ALTER TABLE old_table_name
+RENAME TO new_table_name;
+
+-- Rename a column in a table
+ALTER TABLE table_name
+RENAME COLUMN old_column_name TO new_column_name;
+
+-- Rename a constraint (e.g., primary key, foreign key)
+ALTER TABLE table_name
+RENAME CONSTRAINT old_constraint_name TO new_constraint_name;
+
+-- Rename an index
+ALTER INDEX old_index_name
+RENAME TO new_index_name;
+
+-- Rename a sequence
+ALTER SEQUENCE old_sequence_name
+RENAME TO new_sequence_name;

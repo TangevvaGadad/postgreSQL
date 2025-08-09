@@ -29,8 +29,6 @@ ALTER COLUMN salary DROP DEFAULT;
 ALTER TABLE employees
 ALTER COLUMN salary DROP NOT NULL;
 
-
-
 -- Rename a table
 ALTER TABLE old_table_name
 RENAME TO new_table_name;

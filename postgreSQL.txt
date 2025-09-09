@@ -28,3 +28,5 @@ WHERE salary > (
 Coalesce function- COALESCE returns the first non-null value from the list of arguments provided.-like assigning default value
 
 
+How to MODIFY A column?
+ex:Changing datatype or adding default values etc.

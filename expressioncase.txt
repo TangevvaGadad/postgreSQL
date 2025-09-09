@@ -1,0 +1,48 @@
+SELECT * FROM person;
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    fname VARCHAR(50),
+    lname VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    dept VARCHAR(50),
+    salary NUMERIC(10, 2),
+    hire_date DATE
+);
+
+INSERT INTO employees (emp_id, fname, lname, email, dept, salary, hire_date) VALUES
+(1, 'Raj', 'Sharma', 'raj.sharma@example.com', 'IT', 50000.00, '2020-01-15'),
+(2, 'Priya', 'Singh', 'priya.singh@example.com', 'HR', 45000.00, '2019-03-22'),
+(3, 'Arjun', 'Verma', 'arjun.verma@example.com', 'IT', 55000.00, '2021-06-01'),
+(4, 'Suman', 'Patel', 'suman.patel@example.com', 'Finance', 60000.00, '2018-07-30'),
+(5, 'Kavita', 'Rao', 'kavita.rao@example.com', 'HR', 47000.00, '2020-11-10'),
+(6, 'Amit', 'Gupta', 'amit.gupta@example.com', 'Marketing', 52000.00, '2020-09-25'),
+(7, 'Neha', 'Desai', 'neha.desai@example.com', 'IT', 48000.00, '2019-05-18'),
+(8, 'Rahul', 'Kumar', 'rahul.kumar@example.com', 'IT', 53000.00, '2021-02-14'),
+(9, 'Anjali', 'Mehta', 'anjali.mehta@example.com', 'Finance', 61000.00, '2018-12-03'),
+(10, 'Vijay', 'Nair', 'vijay.nair@example.com', 'Marketing', 50000.00, '2020-04-19');
+
+SELECT * FROM employees;
+
+SELECT fname,salary,
+CASE 
+WHEN salary>=50000 THEN 'HIGH'
+ELSE 'LOW'
+END AS sal_cat from employees;
+
+SELECT fname,lname,
+CASE WHEN salary>=30000 THEN 'valued'
+ELSE 'not valued'
+END AS val FROM employees;
+
+SELECT
+CASE WHEN salary>=50000 THEN 'HIGH'
+WHEN salary BETWEEN 45000 AND 55000 THEN 'MID'
+ELSE 'LOW'
+END AS sal_cat,COUNT(emp_id) FROM employees GROUP BY sal_cat;
+
+SELECT fname,salary,
+CASE WHEN salary>0 THEN ROUND(salary*0.1)
+END AS bonus,
+CASE WHEN salary >0 THEN salary+ROUND(salary*0.1)
+END AS tot
+FROM employees;

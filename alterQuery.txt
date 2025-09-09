@@ -48,3 +48,32 @@ RENAME TO new_index_name;
 -- Rename a sequence
 ALTER SEQUENCE old_sequence_name
 RENAME TO new_sequence_name;
+
+
+//code
+
+SELECT * FROM person;
+
+ALTER TABLE person
+ALTER COLUMN name
+SET DATA TYPE VARCHAR(150);
+ALTER TABLE person
+ALTER COLUMN  city
+SET DATA TYPE VARCHAR(150);
+
+ALTER TABLE person
+ALTER COLUMN city
+SET DEFAULT 'unknown';
+
+ALTER TABLE person
+ALTER COLUMN city
+SET NOT NULL;
+
+ALTER TABLE person
+ALTER COLUMN city
+DROP DEFAULT;
+
+ALTER TABLE person
+ALTER COLUMN city
+DROP NOT NULL;
+

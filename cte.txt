@@ -1,0 +1,12 @@
+Common table expression is a temporary result set that you can define whithin a query to simplify complex sql statements.
+
+SYNTAX:
+
+WITH cte_name (optional_column_ist) AS (
+    --CTE query definition
+    SELECT --
+)
+--main query referencing CTE
+SELECT ...
+FROM cte_name 
+WHERE ...;

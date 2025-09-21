@@ -1,0 +1,52 @@
+Basics of SQL Triggers
+
+1. What is a Trigger?
+- A trigger is a special type of stored procedure in SQL that automatically executes (fires) when a specific event occurs in a table or view.
+- Events can be INSERT, UPDATE, or DELETE operations.
+
+2. Syntax (Basic)
+CREATE TRIGGER trigger_name
+AFTER | BEFORE INSERT | UPDATE | DELETE
+ON table_name
+FOR EACH ROW
+EXECUTE FUNCTION function_name();
+
+3. Types of Triggers
+- BEFORE Trigger: Executes before the event (e.g., before data is inserted).
+- AFTER Trigger: Executes after the event (e.g., after data is updated).
+- INSTEAD OF Trigger: Used mainly with views to perform operations instead of the triggering action.
+
+4. Example (PostgreSQL)
+-- Suppose we want to log employee salary changes:
+CREATE TABLE salary_audit (
+    emp_id INT,
+    old_salary NUMERIC,
+    new_salary NUMERIC,
+    changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE OR REPLACE FUNCTION log_salary_change()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO salary_audit(emp_id, old_salary, new_salary)
+    VALUES(OLD.emp_id, OLD.salary, NEW.salary);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_salary_update
+AFTER UPDATE OF salary ON employees
+FOR EACH ROW
+EXECUTE FUNCTION log_salary_change();
+
+5. Uses of Triggers
+- Auditing changes (who changed what and when).
+- Enforcing business rules automatically.
+- Preventing invalid transactions.
+- Maintaining derived or summary data (e.g., updating totals).
+- Automating system tasks (e.g., sending alerts).
+
+6. Applications
+- Security: Restrict or log unauthorized operations.
+- Data Integrity: Ensure consistency without relying only on application logic.
+- Automation: Reduce need for manual checks and updates.

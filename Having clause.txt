@@ -1,0 +1,13 @@
+Having clause:
+
+SELECT p_name,SUM(total) FROM bill
+GROUP BY p_name
+HAVING SUM(total)>15000;
+
+ROLLUP clause:
+
+SELECT COALESCE(p_name,'tot'),
+SUM(total) from bill
+GROUP BY ROLLUP(p_name)
+ORDER BY SUM(total); 
+

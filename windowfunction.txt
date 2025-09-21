@@ -1,0 +1,13 @@
+Window functions:
+ALSO known as analytic functions allow you to perform
+calculaations across a set of row related to the current row
+
+Defined by an OVER() clause.
+
+Benefits of Window Functions
+
+Advanced Analytics: They enable complex calculations like running totals, moving averages, rank calculations, and cumulative distributions.
+
+Non-Aggregating: Unlike aggregate functions, window functions do not collapse rows. This means you can calculate aggregates while retaining individual row details.
+
+Flexibility: They can be used in various clauses of SQL, such as SELECT, ORDER BY, and HAVING, providing a lot of flexibility in writing queries.

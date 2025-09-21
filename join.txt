@@ -1,0 +1,84 @@
+ONE TO MANY
+
+Types:
+1.inner join-returns only the rows where there is a match between the specified colums in both left(or first) and rght(or second) tables;
+2.cross join-every row from one table is combined with every row from other table;
+3.left join-returns all rows from the left (or first) table and the matching rows from the right(or second) table.
+4.right join
+
+SELECT * FROM customers CROSS JOIN orders;
+
+SELECT * FROM customers c
+INNER JOIN
+orders o
+ON c.cust_id=o.ord_id;
+
+SELECT * FROM customers;
+
+SELECT * FROM orders;
+
+SELECT c.cust_name,SUM(o.price) FROM customers c
+INNER JOIN
+orders o
+ON c.cust_id=o.ord_id GROUP BY cust_name;
+
+SELECT * FROM customers c
+RIGHT JOIN
+orders o
+ON c.cust_id=o.ord_id;
+
+
+MANY to MANY:
+
+CREATE TABLE students(
+s_id SERIAL PRIMARY KEY,
+name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE courses(
+c_id SERIAL PRIMARY KEY,
+name VARCHAR(50) NOT NULL,
+fee NUMERIC NOT NULL
+);
+
+CREATE TABLE enrollment(
+e_id SERIAL PRIMARY KEY,
+s_id INT NOT NULL,
+c_id INT NOT NULL,
+e_date DATE NOT NULL,
+FOREIGN KEY(s_id) REFERENCES students,
+FOREIGN KEY (c_id) REFERENCES courses
+);
+
+SELECT * FROM enrollment;
+
+INSERT INTO students (name) VALUES
+('Raju'),
+('Sham'),
+('Alex');
+
+INSERT INTO courses (name, fee) VALUES
+('Web Development', 15000),
+('Data Science', 20000),
+('UI/UX Design', 12000);
+
+
+INSERT INTO enrollment (s_id, c_id, e_date)
+VALUES
+  (1, 1, '2024-01-01'),  -- Raju enrolled in Mathematics
+  (1, 2, '2024-01-15'),  -- Raju enrolled in Physics
+  (2, 1, '2024-02-01'),  -- Sham enrolled in Mathematics
+  (2, 3, '2024-02-15'),  -- Sham enrolled in Chemistry
+  (3, 3, '2024-03-25');  -- Sham enrolled in Chemistry
+
+SELECT * FROM students;
+
+SELECT * FROM courses;
+
+SELECT * FROM enrollment;
+
+SELECT SUM(c.fee) FROM enrollment e
+JOIN students s ON e.s_id=s.s_id
+JOIN courses c ON c.c_id=e.c_id;
+
+  

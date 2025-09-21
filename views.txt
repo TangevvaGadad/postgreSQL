@@ -1,0 +1,12 @@
+views:
+
+A view is like a virtual table.
+
+It does not store data itself, but instead stores a query.
+
+When you query the view, PostgreSQL runs the underlying query.
+
+👉 Example:
+
+CREATE VIEW employee_salaries AS
+SELECT name, salary FROM employees WHERE active = true;

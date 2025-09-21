@@ -1,0 +1,88 @@
+Common Table Expression (CTE) - SQL Basics
+
+1. What is a CTE?
+-----------------
+- A Common Table Expression (CTE) is a temporary named result set defined within the execution scope of a single SQL statement.
+- It simplifies complex queries, improves readability, and helps in query reuse.
+- Unlike a table or view, a CTE exists only for the duration of the query.
+
+2. Syntax
+---------
+WITH cte_name (optional_column_list) AS (
+    -- CTE query definition
+    SELECT column1, column2, ...
+    FROM some_table
+    WHERE condition
+)
+-- main query referencing CTE
+SELECT ...
+FROM cte_name
+WHERE ...;
+
+3. Key Features
+---------------
+- Defined using WITH clause.
+- Can have optional column aliases.
+- Improves query readability by replacing subqueries.
+- Can be referenced multiple times in the main query.
+- Exists temporarily only during query execution.
+
+4. Example (Simple CTE)
+-----------------------
+Find employees who earn more than the average salary:
+
+WITH AvgSalary AS (
+    SELECT AVG(salary) AS avg_sal
+    FROM employees
+)
+SELECT name, salary
+FROM employees, AvgSalary
+WHERE employees.salary > AvgSalary.avg_sal;
+
+Explanation:
+- AvgSalary is the CTE storing average salary.
+- The main query uses it to filter employees with salary above average.
+
+5. Recursive CTE Example
+------------------------
+Find employee hierarchy (manager → employee chain):
+
+WITH RECURSIVE EmployeeHierarchy AS (
+    SELECT id, name, manager_id
+    FROM employees
+    WHERE manager_id IS NULL -- top-level manager
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id
+    FROM employees e
+    INNER JOIN EmployeeHierarchy eh ON e.manager_id = eh.id
+)
+SELECT * FROM EmployeeHierarchy;
+
+6. Uses of CTEs
+---------------
+- Replace complex subqueries for clarity.
+- Break down step-by-step logic in queries.
+- Perform recursive queries (e.g., organizational hierarchies, folder structures).
+- Simplify debugging by isolating query logic.
+- Useful in reporting and analytics for intermediate calculations.
+
+7. Applications of CTEs
+-----------------------
+- Data analysis: Running totals, averages, filtering based on computed values.
+- Hierarchical data traversal: Company org charts, parent-child relationships.
+- Query optimization: Simplify and reuse repeated logic.
+- Modular SQL development: Breaking large queries into smaller reusable components.
+
+8. Benefits of CTEs
+-------------------
+- Readability: Queries are easier to understand and maintain.
+- Reusability: The same CTE can be referenced multiple times.
+- Recursion: Supports hierarchical and recursive data queries.
+- Flexibility: Can be combined with joins, aggregates, and window functions.
+
+Conclusion:
+-----------
+CTEs are a powerful SQL feature that enhance query readability, modularity, and allow recursive operations. 
+They act like "temporary views" that make complex queries more manageable and reusable.

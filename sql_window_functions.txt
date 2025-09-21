@@ -1,0 +1,95 @@
+SQL Window Functions Examples
+
+Sample Table: students
+---------------------------------
+id | name   | marks
+---------------------------------
+1  | Aditi  | 95
+2  | Rahul  | 85
+3  | Meena  | 95
+4  | Suresh | 75
+5  | Kavya  | 85
+
+
+1) ROW_NUMBER()
+---------------------------------
+SELECT name, marks,
+       ROW_NUMBER() OVER (ORDER BY marks DESC) AS row_num
+FROM students;
+
+Output:
+name   | marks | row_num
+Aditi  | 95    | 1
+Meena  | 95    | 2
+Rahul  | 85    | 3
+Kavya  | 85    | 4
+Suresh | 75    | 5
+
+
+2) RANK()
+---------------------------------
+SELECT name, marks,
+       RANK() OVER (ORDER BY marks DESC) AS rank_val
+FROM students;
+
+Output:
+name   | marks | rank_val
+Aditi  | 95    | 1
+Meena  | 95    | 1
+Rahul  | 85    | 3
+Kavya  | 85    | 3
+Suresh | 75    | 5
+
+
+3) DENSE_RANK()
+---------------------------------
+SELECT name, marks,
+       DENSE_RANK() OVER (ORDER BY marks DESC) AS dense_rank_val
+FROM students;
+
+Output:
+name   | marks | dense_rank_val
+Aditi  | 95    | 1
+Meena  | 95    | 1
+Rahul  | 85    | 2
+Kavya  | 85    | 2
+Suresh | 75    | 3
+
+
+4) LAG()
+---------------------------------
+SELECT name, marks,
+       LAG(marks) OVER (ORDER BY marks DESC) AS prev_marks
+FROM students;
+
+Output:
+name   | marks | prev_marks
+Aditi  | 95    | NULL
+Meena  | 95    | 95
+Rahul  | 85    | 95
+Kavya  | 85    | 85
+Suresh | 75    | 85
+
+
+5) LEAD()
+---------------------------------
+SELECT name, marks,
+       LEAD(marks) OVER (ORDER BY marks DESC) AS next_marks
+FROM students;
+
+Output:
+name   | marks | next_marks
+Aditi  | 95    | 95
+Meena  | 95    | 85
+Rahul  | 85    | 85
+Kavya  | 85    | 75
+Suresh | 75    | NULL
+
+
+Summary:
+---------------------------------
+ROW_NUMBER()  -> Always unique sequence
+RANK()        -> Skips ranks if tie
+DENSE_RANK()  -> No skipping in ranks
+LAG()         -> Previous row value
+LEAD()        -> Next row value

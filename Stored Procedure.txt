@@ -1,0 +1,56 @@
+Understand Stored Procedure:
+
+STORED Routine:
+    An SQL statement or a set of SQL statement that can be stored on dat.
+
+    TYPES:
+    1.STORED Procedure:Set of statements and procedural logic that can perform operations such as inserting,updating,deleting
+        and querying data.
+
+
+        SYNTAX:
+
+            CREATE OR REPLACE PROCEDURE procedure_name(parameter_name parameter_type,...)
+            LANGUAGE plpgsql
+            AS $$
+                BEGIN
+                    --procedural code
+                END;
+            $$;
+            
+    2.User defined functions:
+
+    custom function create by the user to perform specific operations
+    and return a value.
+
+    SYNTAX:
+
+    CREATE OR REPLACE FUNCTION function_name(parameter)
+    RETURNS return_Type AS $$
+    BEGIN   
+        --Function body
+        RETURN some_value;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    EX:
+    CREATE OR REPLACE FUNCTION dept_max_sal_emp1(dept_name VARCHAR)
+RETURNS TABLE(emp_id INT, fname VARCHAR, salary NUMERIC)
+AS $$
+BEGIN 
+    RETURN QUERY
+    SELECT 
+        e.emp_id, 
+        e.fname, 
+        e.salary
+    FROM employees e
+    WHERE e.dept = dept_name
+      AND e.salary = (
+            SELECT MAX(emp.salary)
+            FROM employees emp
+            WHERE emp.dept = dept_name
+        );
+END;
+$$ LANGUAGE plpgsql;
+
+

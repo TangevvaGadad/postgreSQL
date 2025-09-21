@@ -1,0 +1,81 @@
+-- Customers Table
+CREATE TABLE Customers (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(100) NOT NULL
+);
+
+-- Orders Table
+CREATE TABLE Orders (
+    ord_id INT PRIMARY KEY,
+    ord_date DATE NOT NULL,
+    cust_id INT,
+    FOREIGN KEY (cust_id) REFERENCES Customers(cust_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Products Table
+CREATE TABLE Products (
+    p_id INT PRIMARY KEY,
+    p_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) NOT NULL
+);
+
+-- Order Items Table (Junction Table)
+CREATE TABLE ord_items (
+    items_id INT PRIMARY KEY,
+    ord_id INT,
+    p_id INT,
+    quantity INT NOT NULL,
+    FOREIGN KEY (ord_id) REFERENCES Orders(ord_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (p_id) REFERENCES Products(p_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Insert Customers
+INSERT INTO Customers (cust_id, cust_name) VALUES
+(1, 'Alice'),
+(2, 'Bob'),
+(3, 'Charlie');
+
+-- Insert Products
+INSERT INTO Products (p_id, p_name, price) VALUES
+(101, 'Laptop', 75000.00),
+(102, 'Smartphone', 30000.00),
+(103, 'Headphones', 2000.00),
+(104, 'Keyboard', 1500.00);
+
+-- Insert Orders
+INSERT INTO Orders (ord_id, ord_date, cust_id) VALUES
+(5001, '2025-09-15', 1), -- Alice
+(5002, '2025-09-16', 2), -- Bob
+(5003, '2025-09-17', 1); -- Alice again
+
+-- Insert Order Items (Many-to-Many links)
+INSERT INTO ord_items (items_id, ord_id, p_id, quantity) VALUES
+(1, 5001, 101, 1),  -- Alice bought 1 Laptop
+(2, 5001, 103, 2),  -- Alice bought 2 Headphones
+(3, 5002, 102, 1),  -- Bob bought 1 Smartphone
+(4, 5002, 104, 1),  -- Bob bought 1 Keyboard
+(5, 5003, 101, 1),  -- Alice bought another Laptop
+(6, 5003, 104, 2);  -- Alice bought 2 Keyboards
+
+SELECT o.ord_id, o.ord_date, c.cust_name
+FROM Orders o
+JOIN Customers c ON o.cust_id = c.cust_id;
+
+SELECT c.cust_name AS customerName,p.p_name,p.price,oi.quantity,o.ord_date, 
+	(oi.quantity*p.price) AS total
+	FROM ord_items oi
+	JOIN
+	Products p ON oi.p_id=p.p_id
+	JOIN
+	Customers c ON c.cust_id=c.cust_id
+	JOIN 
+	Orders o ON oi.ord_id=o.ord_id;
+
+
+

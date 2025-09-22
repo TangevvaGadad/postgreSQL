@@ -66,3 +66,17 @@ SELECT * FROM employees WHERE email LIKE '%@example.com';
 -- Checks for NULL values.
 SELECT * FROM employees WHERE lname IS NULL;
 SELECT * FROM employees WHERE lname IS NOT NULL;
+
+
+INTERVAL-the keyword INTERVAL is used to represent a period of time (like 1 day, 2 hours, 5 minutes, etc.).
+INTERVAL is used in PostgreSQL for date and time arithmetic (adding/subtracting days, months, hours, etc.)
+
+EX:
+-- Add 1 day
+SELECT NOW() + INTERVAL '1 day';
+
+-- Subtract 2 hours
+SELECT NOW() - INTERVAL '2 hours';
+
+-- Add 3 months and 10 minutes
+SELECT NOW() + INTERVAL '3 months 10 minutes';

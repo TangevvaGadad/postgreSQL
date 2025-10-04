@@ -82,3 +82,26 @@ SELECT NOW() - INTERVAL '2 hours';
 SELECT NOW() + INTERVAL '3 months 10 minutes';
 
 INITCAP() by default capitalizes the first letter of every word (e.g., "john DOE" → "John Doe").
+
+|| → string concatenation in PostgreSQL.
+
+CODE:
+SELECT user_id,
+       UPPER(LEFT(name, 1)) || LOWER(SUBSTRING(name FROM 2)) AS name
+FROM Users
+ORDER BY user_id;
+
+
+Explanation
+
+LEFT(name, 1) → gets the first character.
+
+UPPER(...) → makes the first character uppercase.
+
+SUBSTRING(name FROM 2) → gets everything from the 2nd character onward.
+
+LOWER(...) → makes the rest lowercase.
+
+|| → string concatenation in PostgreSQL.
+
+ORDER BY user_id → matches LeetCode’s requirement to order by user_id.

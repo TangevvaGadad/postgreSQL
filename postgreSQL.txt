@@ -32,3 +32,6 @@ How to MODIFY A column?
 ex:Changing datatype or adding default values etc.
 
 $$-delimeter
+
+COUNT(...)::decimal — the :: cast
+— :: is PostgreSQL’s shorthand casting operator.
